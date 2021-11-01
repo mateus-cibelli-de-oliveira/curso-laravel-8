@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index() 
     {
-        $posts = Post::orderBy('id', 'DESC')->paginate(1);
+        $posts = Post::orderBy('id', 'ASC')->paginate();
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -37,7 +37,7 @@ class PostController extends Controller
 
         }
 
-        $post = Post::create($data);
+        Post::create($data);
 
             return redirect()
             ->route('posts.index')
@@ -113,7 +113,7 @@ class PostController extends Controller
 
         $posts = Post::where('title', 'LIKE', "%{$request->search}%")
                  ->orWhere('content', 'LIKE', "%{$request->search}%")
-                 ->paginate(1);
+                 ->paginate();
         return view('admin.posts.index', compact('posts', 'filters'));     
     }
 }
